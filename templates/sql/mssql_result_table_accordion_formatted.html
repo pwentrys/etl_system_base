@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/datatables.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+
+
+    <!-- JS -->
+    <script src="/js/jquery_2_1_1_min.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/datatables_1_10_4_min.js"></script>
+    <script src="/js/jstree.min.js"></script>
+    <script src="/js/jquery.ui.touch.js"></script>
+    <script src="/js/require.js"></script>
+
+    <!-- Datatables JS -->
+    <script>
+        $(document).ready(function () {
+                    $('#table_one').html('<table cellpadding="0" cellspacing="0" border="0" style="font-size:14px;" class="display" id="datatable_one"></table>');
+
+                    var table_one_data = $('#datatable_one').dataTable({
+                        "data":         {{ data['data']|safe }},
+                        "columns":      [ {{ data['col_names'] | safe }} ],
+                        "autoWidth":    true,
+                        "deferRender":  true,
+                        "info":         true,
+                        "jQueryUI":     false,
+                        "lengthChange": false,
+                        "ordering":     true,
+                        "paging":       true,
+                        "processing":   true,
+                        "searching":    true,
+                        "serverSide":   false,
+                        "stateSave":    false
+        })
+        ;
+        })
+        ;
+    </script>
+<style>
+    body {
+        font-family: 'Cantarell', sans-serif;
+        font-size: 12px;
+    }
+    #menu {
+        left: 0;
+        top: 0;
+        margin-bottom: 10%;
+        color: #ccc;
+        width: 250px;
+        height: 90%;
+        position: fixed;
+        overflow: scroll;
+        background-color: #111;
+    }
+
+    #schema {
+        margin-bottom: 10%;
+        position: relative;
+    }
+
+    #content {
+        left: 275px;
+        margin-bottom: 10%;
+        position: absolute;
+    }
+
+    #footer {
+        height: 10%;
+        left: 0;
+        width: 100%;
+        background-color: #111;
+        position: fixed;
+        top: 90%;
+        color: #ccc;
+    }
+
+    #query {
+        margin-left:1%;
+        margin-right: 2%;
+        margin-top: 10px;
+        width: 95%;
+        height: 175%;
+    }
+
+    #footer form {
+        position: relative;
+    }
+
+    td input {
+        margin-right: 15px;
+    }
+
+</style>
+
+</head>
+<body>
+
+<div id="menu">
+    <div id="schema">
+    </div>
+</div>
+
+<div id="content" style="width:85%; z-index: -1;">
+    <!-- Result Table -->
+    <div class="table_one">
+        <h3>{{ title }}</h3>
+        <section>
+            <div id="table_one">
+                <div class="tabs">
+                    <div class="js">
+                        <div class="table_one_data">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="footer">
+    <!-- Query Form -->
+    <form method="POST" action="/mssql/test">
+
+        {{ form.hidden_tag() }}
+        <table style="width: 100%; height: 75px;">
+            <tbody>
+            <tr>
+                <td colspan="2">
+                    <center>
+        {{ form.query.label }}
+                        </center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+        {{ form.query(size=16) }}
+                </td>
+                <td width="25px">
+                    <center>
+                    <input type="submit" value="Query"/>
+                    </center>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+    </form>
+</div>
+    <!-- JQuery UI Accordion JS -->
+<script>
+    $('#schema').jstree({ 'core' : {
+        'data' :[{{ schema|safe }}]},
+        'themes': {'stripes': true},
+        'plugins' : [
+        'sort', 'wholerow'
+  ]
+    });
+</script>
+<script>
+    $('button').on('click', function () {
+      $.jstree.reference('#schema').select_node('child_node_1');
+    });
+</script>
+
+</body>
+
+</html>

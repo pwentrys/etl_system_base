@@ -347,7 +347,7 @@
 
 .jstree-default .jstree-disabled {
     background: 0 0;
-    color: #888
+    color: #666
 }
 
 .jstree-default .jstree-disabled.jstree-hovered {
@@ -382,7 +382,7 @@
 }
 
 .jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
-    background: #BBB
+    background: #e7f4f9
 }
 
 .jstree-default.jstree-checkbox-no-clicked > .jstree-wholerow-ul .jstree-wholerow-clicked {
@@ -390,7 +390,7 @@
 }
 
 .jstree-default.jstree-checkbox-no-clicked > .jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-    background: #333
+    background: #e7f4f9
 }
 
 #jstree-dnd.jstree-default .jstree-ok, #jstree-dnd.jstree-default .jstree-er {
@@ -430,17 +430,17 @@
 }
 
 .jstree-default .jstree-wholerow-hovered {
-    background: #777
+    background: #e7f4f9
 }
 
 .jstree-default .jstree-wholerow-clicked {
-    background: #333;
-    background: -moz-linear-gradient(top, #333 0, #444 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #333), color-stop(100%, #444));
-    background: -webkit-linear-gradient(top, #333 0, #444 100%);
-    background: -o-linear-gradient(top, #333 0, #444 100%);
-    background: -ms-linear-gradient(top, #333 0, #444 100%);
-    background: linear-gradient(to bottom, #333 0, #444 100%)
+    background: #beebff;
+    background: -moz-linear-gradient(top, #beebff 0, #a8e4ff 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #beebff), color-stop(100%, #a8e4ff));
+    background: -webkit-linear-gradient(top, #beebff 0, #a8e4ff 100%);
+    background: -o-linear-gradient(top, #beebff 0, #a8e4ff 100%);
+    background: -ms-linear-gradient(top, #beebff 0, #a8e4ff 100%);
+    background: linear-gradient(to bottom, #beebff 0, #a8e4ff 100%)
 }
 
 .jstree-default .jstree-node {
@@ -1030,7 +1030,7 @@
     }
 
     .jstree-default-responsive .jstree-wholerow-hovered {
-        background: #666
+        background: #e7f4f9
     }
 
     .jstree-default-responsive .jstree-wholerow-clicked {

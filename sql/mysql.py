@@ -10,7 +10,6 @@ class MySQL_Connection():
         pass
 
     def execute_query(self, server, query):
-        result = 'None'
         cnn = umysql.Connection()
 
         try:
