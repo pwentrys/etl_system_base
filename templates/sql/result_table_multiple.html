@@ -15,16 +15,8 @@
                     $('#table_one').html('<table cellpadding="0" cellspacing="0" border="0" style="font-size:14px;" class="display" id="datatable_one"></table>');
 
                     var table_one_data = $('#datatable_one').dataTable({
-                        "data": {
-                    {
-                        jira_data['data'] | safe
-                    }
-                },
-                "columns"
-        :
-        [
-            {{ jira_data['col_names'] | safe }
-        }],
+                        "data": {{ jira_data['data']|safe }},
+                "columns": [ {{ jira_data['col_names'] | safe }} ],
         "autoWidth"
         :
         true,

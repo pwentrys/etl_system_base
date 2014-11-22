@@ -19,7 +19,7 @@ def index():
 
 @app.route('/mysql/test')
 def mysql_test():
-    execute = MySQL_Connection().execute
+    execute = MySQL_Connection().execute_query
     query = MySQL_Functions()
 
     server = 'Naboo'
@@ -32,7 +32,7 @@ def mysql_test():
 
 @app.route('/mysql/formatted')
 def mysql_formatted():
-    execute = MySQL_Connection().execute
+    execute = MySQL_Connection().execute_query
     query = MySQL_Functions()
 
     final_result = []
@@ -69,7 +69,7 @@ def mysql_formatted():
 
 @app.route('/mysql/datatables')
 def mysql_datatables_no_pagination():
-    execute = MySQL_Connection().execute
+    execute = MySQL_Connection().execute_query
     query = MySQL_Functions()
 
     final_result = []
@@ -116,7 +116,7 @@ def mysql_datatables_no_pagination():
 def mysql_datatables_no_pagination_multiple():
     from forms import Query
 
-    execute = MySQL_Connection().execute
+    execute = MySQL_Connection().execute_query
     query = MySQL_Functions()
     form = Query(request.form)
 
