@@ -20,7 +20,7 @@ def index():
     return 'Hello World!'
 
 
-@app.route('/mysql/test')
+@app.route('/mysql/testt')
 def mysql_test():
     execute = MySQL_Connection().execute_query
     query = MySQL_Functions()
@@ -214,6 +214,7 @@ def mysql_datatables_no_pagination_accordion():
 
 
 @app.route('/mysql/datatables_accordion_formatted', methods=['GET', 'POST'])
+@app.route('/mysql/test', methods=['GET', 'POST'])
 def mysql_datatables_no_pagination_accordion_formatted():
 
     execute = MySQL_Connection().execute_query
