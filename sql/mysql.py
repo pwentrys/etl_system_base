@@ -1,6 +1,7 @@
 __author__ = 'Przemyslaw "Blasto" Wentrys'
 
 import umysql
+
 from config.configuration import SQL
 
 
@@ -8,7 +9,7 @@ class MySQL_Connection():
     def __init__(self):
         pass
 
-    def execute(self, server, query):
+    def execute_query(self, server, query):
         result = 'None'
         cnn = umysql.Connection()
 

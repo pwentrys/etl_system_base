@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
+
+    <!-- JS -->
+    <script src="/js/jquery_2_1_1_min.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/datatables_1_10_4_min.js"></script>
+
+</head>
+
+<!-- Datatables JS -->
+<script>
+
+    $(document).ready(function () {
+                $('#table_one').html('<table cellpadding="0" cellspacing="0" border="0" style="font-size:14px;" class="display" id="datatable_one"></table>');
+
+                var table_one_data = $('#datatable_one').dataTable({
+                    "data": {
+                {
+                    jira_data['data'] | safe
+                }
+            },
+            "columns"
+    :
+    [
+        {{ jira_data['col_names'] | safe }
+    }],
+    "autoWidth"
+    :
+    true,
+            "deferRender"
+    :
+    false,
+            "info"
+    :
+    false,
+            "lengthChange"
+    :
+    true,
+            "serverSide"
+    :
+    false
+    })
+    ;
+    })
+    ;
+</script>
+
+<body>
+<!-- Result Table -->
+<div class="table_one">
+    <h1>Jira Issues</h1>
+    <section>
+        <div id="table_one">
+            <div class="tabs">
+                <div class="js">
+                    <div class="table_one_data">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>
