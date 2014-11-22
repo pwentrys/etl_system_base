@@ -8,6 +8,15 @@ class MySQL_Functions():
     def check_for_existence(self, database, table, columns):
         return 'select {2} from `{0}`.`{1}`;'.format(database, table, columns)
 
+    def get_schema(self):
+        return 'select ' \
+               'TABLE_SCHEMA as "Database", ' \
+               'TABLE_NAME as "Table", ' \
+               'COLUMN_NAME as "Column" ' \
+               'from ' \
+               'INFORMATION_SCHEMA.columns ' \
+               'group by TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME;'
+
     def datatables_columns(self, columns):
         col_names = ''
 
@@ -36,9 +45,17 @@ class MySQL_Functions():
         return list(formatted_data)
 
     def datatables_output(self, result):
-        final_result = {
-            'col_names': self.datatables_columns(result.fields),
-            'data': self.datatables_data(result.rows)
-        }
+        try:
+            final_result = {
+                'col_names': self.datatables_columns(result.fields),
+                'data': self.datatables_data(result.rows)
+            }
+        except:
+            final_result = {
+                'col_names': '{0}"class": "center", "title": "{1}"{2},{0}"class": "center", "title": "{3}"{2}'.format(
+                    '{', 'Error ID', '}', 'Error MSG'
+                ),
+                'data': [[str(result[0]), str(result[1])]]
+            }
 
         return final_result

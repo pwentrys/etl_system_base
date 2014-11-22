@@ -119,29 +119,99 @@ def mysql_datatables_no_pagination_multiple():
     execute = MySQL_Connection().execute_query
     query = MySQL_Functions()
     form = Query(request.form)
+    template = 'sql/result_table_multiple.html'
 
     server = 'Naboo'
     database = 'jira'
     table = 'jiraissue'
     columns = '*'
 
-    # result_raw = execute(server, query.check_for_existence(database, table, columns))
     if request.method == 'POST':
         if form.validate():
             result_raw = execute(server, str(form.query.data))
             result_formatted = query.datatables_output(result_raw)
-            return render_template('sql/result_table_multiple.html', form=form, title=str(form.query.data),
+            return render_template(template, form=form, title=str(form.query.data),
                                    jira_data=result_formatted)
         else:
-            return """ VALIDATION ERROR """
+            return render_template(template, form=form, title=str(form.query.data),
+                                   jira_data='ERROR')
     elif request.method == 'GET':
         result_raw = execute(server, query.check_for_existence(database, table, columns))
         result_formatted = query.datatables_output(result_raw)
 
-        return render_template('sql/result_table_multiple.html', form=form, title="Jira Issues",
+        return render_template(template, form=form, title="Jira Issues",
                                jira_data=result_formatted)
     else:
         return str(request.method) + 'NOT ALLOWED'
+
+
+@app.route('/mysql/datatables_accordion', methods=['GET', 'POST'])
+def mysql_datatables_no_pagination_accordion():
+    from forms import Query
+    import json
+
+    execute = MySQL_Connection().execute_query
+    query = MySQL_Functions()
+    form = Query(request.form)
+    template = 'sql/result_table_accordion.html'
+    server = 'Naboo'
+
+
+    schema_raw = execute(server, query.get_schema())
+    result_dict = {}
+    for schema, table, column in schema_raw.rows:
+        result_dict[str(schema)] = {}
+
+    for schema, table, column in schema_raw.rows:
+        result_dict[str(schema)][str(table)] = []
+
+    for schema, table, column in schema_raw.rows:
+        result_dict[str(schema)][str(table)].append(str(column))
+
+
+    schema_nav = ''
+    col_names = ''
+
+    for col_name in schema_raw.fields:
+        col_names += '{0}"class": "center", "title": "{1}"{2},'.format('{', col_name[0], '}')
+
+    for schema in result_dict.iterkeys():
+        schema_nav += '{0} \'text\': \'{1}\','.format('{', schema)
+        schema_nav += '\'children\': {0}'.format('[')
+        for table in result_dict[schema].iterkeys():
+            schema_nav += '{0} \'text\': \'{1}\','.format('{', table)
+            schema_nav += '\'children\': {0}'.format('[')
+            for column in result_dict[schema][table]:
+                schema_nav += '{0}\'text\': \'{1}\''.format('{', column)
+                schema_nav += '{0}'.format('},')
+                print column, schema, table
+            schema_nav = schema_nav[:-1] + '{0}'.format(']')
+            schema_nav += '{0}'.format('},')
+
+        schema_nav = schema_nav[:-1] + '{0}'.format(']')
+        schema_nav += '{0}'.format('},')
+
+    if request.method == 'POST':
+        if form.validate():
+            result_raw = execute(server, str(form.query.data))
+            result_formatted = query.datatables_output(result_raw)
+            return render_template(template, form=form, schema=str(json.dumps(schema_nav))[1:-1],
+                                   title=str(form.query.data),
+                                   data=result_formatted)
+        else:
+            return render_template(template, form=form, schema=str(json.dumps(schema_nav))[1:-1],
+                                   title=str(form.query.data),
+                                   data='ERROR')
+    elif request.method == 'GET':
+        result_raw = execute(server, query.check_for_existence('jira', 'jiraissue', 'ID as "id", issuenum as "Issue Num", PROJECT as "Project", ASSIGNEE as "Assignee", PRIORITY as "Priority", issuestatus as "Issue Status"'))
+        result_formatted = query.datatables_output(result_raw)
+
+        return render_template(template, form=form, schema=str(json.dumps(schema_nav))[1:-1],
+                               title=query.check_for_existence('jira', 'jiraissue', 'ID as "id", issuenum as "Issue Num", PROJECT as "Project", ASSIGNEE as "Assignee", PRIORITY as "Priority", issuestatus as "Issue Status"'),
+                               data=result_formatted,)
+    else:
+        return str(request.method) + 'NOT ALLOWED'
+
 
 if __name__ == '__main__':
     app.run(host=WEB_IP, port=WEB_PORT, debug=True)

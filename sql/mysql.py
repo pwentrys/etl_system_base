@@ -23,8 +23,8 @@ class MySQL_Connection():
             )
 
             result = cnn.query(query)
+            return result
         except Exception as error:
-            print error
-
-        cnn.close()
-        return result
+            return error
+        finally:
+            cnn.close()
