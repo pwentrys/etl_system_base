@@ -1,8 +1,9 @@
 __author__ = 'Przemyslaw "Blasto" Wentrys'
 
-from flask import Flask, render_template, request
+
 import json
 
+from flask import Flask, render_template, request
 from config.configuration import WEB_IP, WEB_PORT
 from helpers.sql.mysql.mysql import MySQL_Connection
 from helpers.sql.mssql.mssql import MSSQL_Connection
