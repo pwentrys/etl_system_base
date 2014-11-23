@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+    <link href='/css/dreadnaught.css' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+<table width="100%" style="top:100px;">
+    <tbody>
+    <tr>
+        <th align="center" valign="middle" width="33%">
+            <div id="ci">
+                Continuous Integration
+            </div>
+        </th>
+        <th align="center" valign="middle" width="33%">
+            <div id="dev">
+                Development
+            </div>
+        </th>
+        <th align="center" valign="middle" width="33%">
+            <div id="prod">
+                Production
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <td align="center" valign="middle" width="33%">
+            <div id="ci">
+                {{ paths|safe }}
+            </div>
+        </td>
+        <td align="center" valign="middle" width="33%">
+            <div id="dev">
+                <a href="http://{{ dev|safe }}">Index</a>
+            </div>
+        </td>
+        <td align="center" valign="middle" width="33%">
+            <div id="prod">
+                <a href="http://{{ prod|safe }}">Index</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>
