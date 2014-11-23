@@ -9,16 +9,18 @@ class MySQL_Connection():
     def __init__(self):
         pass
 
-    def execute_query(self, server, query):
+    def execute_query(self, server_name, query):
         cnn = umysql.Connection()
+
+        server = SQL['MySQL'][server_name]
 
         try:
             cnn.connect(
-                SQL['MySQL'][server]['ADDRESS'],
-                SQL['MySQL'][server]['PORT'],
-                SQL['MySQL'][server]['USERNAME'],
-                SQL['MySQL'][server]['PASSWORD'],
-                SQL['MySQL'][server]['DATABASE']
+                server['ADDRESS'],
+                server['PORT'],
+                server['USERNAME'],
+                server['PASSWORD'],
+                server['DATABASE']
             )
 
             result = cnn.query(query)
